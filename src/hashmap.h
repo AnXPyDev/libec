@@ -146,6 +146,8 @@ int hashmap_remove(hashmap_t *hashmap, const char *index, unsigned int index_siz
 	return 0;
 }
 
+#ifdef LIBEC_WSTRING_INCLUDED
+
 void *hashmap_push_blank_ws(hashmap_t *hashmap, const wstring_t *key) {
 	return hashmap_push_blank(hashmap, (char*)key->data, key->size * sizeof(wchar_t));
 }
@@ -158,4 +160,20 @@ int hashmap_remove_ws(hashmap_t *hashmap, const wstring_t *key) {
 	return hashmap_remove(hashmap, (char*)key->data, key->size * sizeof(wchar_t));
 }
 
+#endif
 
+#ifdef LIBEC_CSTRING_INCLUDED
+
+void *hashmap_push_blank_cs(hashmap_t *hashmap, const cstring_t *key) {
+	return hashmap_push_blank(hashmap, (char*)key->data, key->size * sizeof(char));
+}
+
+void *hashmap_get_cs(hashmap_t *hashmap, const cstring_t *key) {
+	return hashmap_get(hashmap, (char*)key->data, key->size * sizeof(char));
+}
+
+int hashmap_remove_cs(hashmap_t *hashmap, const cstring_t *key) {
+	return hashmap_remove(hashmap, (char*)key->data, key->size * sizeof(char));
+}
+
+#endif

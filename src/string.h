@@ -19,6 +19,9 @@ ifnset(`strlen_f', `
 
 unmute()
 
+ifeq(`#string', `cstring', `#define LIBEC_CSTRING_INCLUDED')dnl
+ifeq(`#string', `wstring', `#define LIBEC_WSTRING_INCLUDED')dnl
+
 const char_t NULL_CHAR = 0;
 
 typedef struct {
@@ -114,7 +117,7 @@ int string\_resize(string_t *string, unsigned int new_capacity) {
 	return 0;
 }
 
-int string\_putwc(string_t *string, char_t wc) {
+int string\_put(string_t *string, char_t wc) {
 	if ( string\->size + 1 > string\->capacity ) {
 		string\_resize(string, (string\->capacity + 1) * 1.5);
 	}
